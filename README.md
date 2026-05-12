@@ -1,8 +1,15 @@
-# RNA Workbench
+# GoForth RNA Workbench
 
-RNA Workbench is a local browser app for RNA sequence design. It lets you enter secondary-structure and base constraints, generate candidate sequences with pretrained PyTorch checkpoints, score candidates with ViennaRNA, and inspect MFE/ensemble structures.
+GoForth RNA Workbench is a local browser app for RNA sequence design. It lets you enter secondary-structure and base constraints, generate candidate sequences with pretrained PyTorch checkpoints, score candidates with ViennaRNA, and inspect MFE/ensemble structures.
 
 ![RNA Workbench screenshot](screen.png)
+
+## Paper
+
+This workbench accompanies:
+
+> Michael Lindsey. **GoForth: Language Models for RNA Design under Structure, Sequence, and Coding Constraints.** arXiv:2605.07608, 2026.  
+> https://arxiv.org/abs/2605.07608
 
 ## What Is Included
 
