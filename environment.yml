@@ -1,0 +1,16 @@
+name: rna-workbench
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - biopython
+  - pyarrow
+  - tqdm
+  - viennarna=2.7.2
+  - pip:
+      - torch

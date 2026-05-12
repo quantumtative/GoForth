@@ -1,0 +1,1 @@
+window.RNA_WORKBENCH_API_BASE = "";

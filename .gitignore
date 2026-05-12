@@ -1,0 +1,17 @@
+.DS_Store
+*.py[cod]
+__pycache__/
+
+.venv/
+venv/
+.env
+
+outputs/
+runs/
+
+checkpoints/*.pt
+checkpoints/*.pth
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/

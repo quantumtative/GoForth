@@ -1,0 +1,9 @@
+numpy
+scipy
+pandas
+matplotlib
+biopython
+pyarrow
+tqdm
+torch
+ViennaRNA==2.7.2
