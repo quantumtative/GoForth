@@ -12,7 +12,6 @@ apps/rna_workbench/static/           browser UI
 trees/                               runtime model/source package
 checkpoints/.gitkeep                 placeholder for downloaded model files
 scripts/download_checkpoints.sh      checkpoint downloader and checksum verifier
-website_package/wasm/                static frontend package for website hosting
 requirements.txt                     pip dependencies
 environment.yml                      conda environment
 run_workbench.sh                     launch helper
@@ -111,28 +110,6 @@ The response should include both checkpoint choices:
 pretrained_small
 fsb_pretrained_small
 ```
-
-## Website Package
-
-The static frontend package is in:
-
-```text
-website_package/wasm/
-```
-
-Copy that folder into a website and edit `website_package/wasm/config.js` to point at a running RNA Workbench backend:
-
-```js
-window.RNA_WORKBENCH_API_BASE = "https://rna-api.example.com";
-```
-
-When serving the frontend and backend from different origins, start the backend with:
-
-```bash
-RNA_WORKBENCH_CORS_ORIGIN=https://your-site.example bash run_workbench.sh
-```
-
-This package is not a complete browser-only WASM/WebGPU port. The current model runtime uses Python, PyTorch, ViennaRNA, and local checkpoint files.
 
 ## Repository Notes
 

@@ -419,14 +419,12 @@
       </div>
     </section>
   </main>
-  <script src="config.js"></script>
   <script>
     let latest = null;
     let selected = null;
     let exampleTruth = null;
     let statusTimer = null;
     let renderToken = 0;
-    const API_BASE = String(window.RNA_WORKBENCH_API_BASE || "").replace(/\/+$/, "");
 
     const $ = (id) => document.getElementById(id);
     const fmt = (x, d = 3) => x === null || x === undefined || Number.isNaN(Number(x)) ? "" : Number(x).toFixed(d);
@@ -515,7 +513,7 @@
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       try {
-        const response = await fetch(`${API_BASE}${url}`, {...options, signal: controller.signal});
+        const response = await fetch(url, {...options, signal: controller.signal});
         const text = await response.text();
         const data = text ? JSON.parse(text) : {};
         if (!response.ok) throw new Error(data.error || `${response.status} ${response.statusText}`);

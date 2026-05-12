@@ -1160,26 +1160,15 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
     designer: Designer
     static_dir: Path
     choices: dict[str, CheckpointChoice]
-    cors_origin: str = ""
 
     def log_message(self, fmt: str, *args: Any) -> None:
         sys.stderr.write("[%s] %s\n" % (time.strftime("%H:%M:%S"), fmt % args))
-
-    def send_cors_headers(self) -> None:
-        if not self.cors_origin:
-            return
-        self.send_header("Access-Control-Allow-Origin", self.cors_origin)
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-        if self.cors_origin != "*":
-            self.send_header("Vary", "Origin")
 
     def send_json(self, data: Any, status: int = 200) -> None:
         body = json.dumps(data, allow_nan=False).encode("utf-8")
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
         self.send_header("Cache-Control", "no-store")
-        self.send_cors_headers()
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -1189,12 +1178,6 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
         if length <= 0:
             return {}
         return json.loads(self.rfile.read(length).decode("utf-8"))
-
-    def do_OPTIONS(self) -> None:  # noqa: N802
-        self.send_response(204)
-        self.send_cors_headers()
-        self.send_header("Content-Length", "0")
-        self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
         path = urlparse(self.path).path
@@ -1231,7 +1214,6 @@ class WorkbenchHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", content_type)
         self.send_header("Cache-Control", "no-store")
-        self.send_cors_headers()
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
@@ -1285,7 +1267,6 @@ def main() -> int:
     parser.add_argument("--device", choices=("auto", "cuda", "mps", "cpu"), default="auto")
     parser.add_argument("--max-len-override", type=int, default=500)
     parser.add_argument("--outdir", type=Path, default=TREES / "outputs/rna_workbench")
-    parser.add_argument("--cors-origin", default=os.environ.get("RNA_WORKBENCH_CORS_ORIGIN", ""))
     args = parser.parse_args()
 
     choices = checkpoint_choices()
@@ -1300,7 +1281,6 @@ def main() -> int:
     Handler.designer = designer
     Handler.static_dir = Path(__file__).resolve().parent / "static"
     Handler.choices = choices
-    Handler.cors_origin = args.cors_origin
 
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     print(f"RNA workbench listening on http://{args.host}:{args.port}", flush=True)

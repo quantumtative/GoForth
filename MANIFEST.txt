@@ -3,7 +3,6 @@ README.md
 TECHNICAL_NOTES.md
 MANIFEST.txt
 apps/rna_workbench/server.py
-apps/rna_workbench/static/config.js
 apps/rna_workbench/static/index.html
 checkpoints/.gitkeep
 environment.yml
@@ -18,9 +17,6 @@ trees/rnaplot_design_highlight.py
 trees/run_matrixmodel_seq2seq_ar_designer_torch.py
 trees/run_matrixmodel_universal_designer_torch.py
 trees/run_rna_universal_designer_torch.py
-website_package/README.md
-website_package/wasm/config.js
-website_package/wasm/index.html
 
 Release assets, not tracked in Git:
 
